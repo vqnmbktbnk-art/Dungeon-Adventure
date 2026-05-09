@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DungeonAdventure", "DungeonAdventure\DungeonAdventure.csproj", "{FB43E203-7C7C-45B9-D16B-76FEBCFD6A51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB43E203-7C7C-45B9-D16B-76FEBCFD6A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB43E203-7C7C-45B9-D16B-76FEBCFD6A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB43E203-7C7C-45B9-D16B-76FEBCFD6A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB43E203-7C7C-45B9-D16B-76FEBCFD6A51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A083CC30-7281-472D-A278-DF1D3BC6EC45}
+	EndGlobalSection
+EndGlobal
