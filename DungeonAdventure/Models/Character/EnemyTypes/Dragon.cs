@@ -1,5 +1,9 @@
 public class Dragon : Enemy    //Boss 龙
 {
+    public Dragon()
+    {
+        Basevalue();
+    }
     public override void Basevalue()
     {
         Health = 200;
