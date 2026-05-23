@@ -24,60 +24,66 @@ public class DragonEventArgs : EventArgs                                 //龙
         this.dragon = dragon;
     }
 }
-public class WarriorEventArgs : EventArgs                                //战士
-{
-    public Warrior warrior;
-    public WarriorEventArgs(Warrior warrior)
-    {
-        this.warrior = warrior;
-    }
-}
-public class MageEventArgs : EventArgs                                   //法师
-{
-    public Mage mage;
-    public MageEventArgs(Mage mage)
-    {
-        this.mage = mage;
-    }
-}
-public class RangerEventArgs : EventArgs                                 //法师
-{
-    public Ranger ranger;
-    public RangerEventArgs(Ranger ranger)
-    {
-        this.ranger = ranger;
-    }
-}
 public class SkillEventHandler
 {
-    public event EventHandler<GoblinEventArgs>? WarriorSkillEvent;
-    protected virtual void OnWarriorSkillEvent(GoblinEventArgs e)
+    public event EventHandler<GoblinEventArgs>? WarriorSkillGoblinEvent;  //战士对哥布林的事件
+    protected virtual void OnWarriorSkillGoblinEvent(GoblinEventArgs e)
     {
-        WarriorSkillEvent?.Invoke(this,e);
+        WarriorSkillGoblinEvent?.Invoke(this,e);
     }
-    public void OnWarriorSkill(GoblinEventArgs e)
+    public void OnWarriorSkillGoblin(GoblinEventArgs e)
     {
-        OnWarriorSkillEvent(e);
-    }
-
-    public event EventHandler<SkeletonEventArgs>? MageSkillEvent;
-    protected virtual void OnMageSkillEvent(SkeletonEventArgs e)
-    {
-        MageSkillEvent?.Invoke(this,e);
-    }
-    public void OnMageSkill(SkeletonEventArgs e)
-    {
-        OnMageSkillEvent(e);
+        OnWarriorSkillGoblinEvent(e);
     }
 
-    public event EventHandler<DragonEventArgs>? RangerSkillEvent;
-    protected virtual void OnRangerSkillEvent(DragonEventArgs e)
+    public event EventHandler<SkeletonEventArgs>? WarriorSkillSkeletonEvent;  //战士对骷髅的事件
+    protected virtual void OnWarriorSkillSkeletonEvent(SkeletonEventArgs e)
     {
-        RangerSkillEvent?.Invoke(this,e);
+        WarriorSkillSkeletonEvent?.Invoke(this,e);
     }
-    public void OnRangerSkill(DragonEventArgs e)
+    public void OnWarriorSkillSkeleton(SkeletonEventArgs e)
     {
-        OnRangerSkillEvent(e);
+        OnWarriorSkillSkeleton(e);
+    }
+
+    public event EventHandler<DragonEventArgs>? WarriorSkillDragonEvent;    //战士对龙的事件
+    protected virtual void OnWarriorSkillDragonEvent(DragonEventArgs e)
+    {
+        WarriorSkillDragonEvent?.Invoke(this,e);
+    }
+    public void OnWarriorSkillDragon(DragonEventArgs e)
+    {
+        OnWarriorSkillDragonEvent(e);
+    }
+
+    public event EventHandler<GoblinEventArgs>? MageSkillGoblinEvent;      //法师对哥布林的事件
+    protected virtual void OnMageSkillGoblinEvent(GoblinEventArgs e)
+    {
+        MageSkillGoblinEvent?.Invoke(this,e);
+    }
+    public void OnMageSkillGoblin(GoblinEventArgs e)
+    {
+        OnMageSkillGoblinEvent(e);
+    }
+
+    public event EventHandler<SkeletonEventArgs>? MageSkillSkeletonEvent;  //法师对骷髅的事件
+    protected virtual void OnMageSkillSkeletonEvent(SkeletonEventArgs e)
+    {
+        MageSkillSkeletonEvent?.Invoke(this,e);
+    }
+    public void OnMageSkillSkeleton(SkeletonEventArgs e)
+    {
+        OnMageSkillSkeletonEvent(e);
+    }
+
+    public event EventHandler<DragonEventArgs>? MageSkillDragonEvent;     //法师对龙的事件
+    protected virtual void OnMageSkillDragonEvent(DragonEventArgs e)
+    {
+        MageSkillDragonEvent?.Invoke(this,e);
+    }
+    public void OnRangerDragonSkill(DragonEventArgs e)
+    {
+        OnMageSkillDragonEvent(e);
     }
 }
 public class SkillEventHandlerMethod
@@ -86,7 +92,6 @@ public class SkillEventHandlerMethod
     public Sweep sweep = new Sweep();                      //技能:横扫
     public IceSpike iceSpike = new IceSpike();             //技能:冰刺
     public FireAttack fireAttack = new FireAttack();       //技能:火攻
-    public ShieldMountain shieldMountain = new ShieldMountain();  //技能:盾山
 
     public void GoblinCriticalHitSkill(object? sender , GoblinEventArgs e)       //哥布林受到暴击技能
     {
@@ -139,51 +144,105 @@ public class SkillEventHandlerMethod
         e.dragon.Health = fireAttack.MagicSkills(e.dragon.Health);
     }
 
-    public void WarriorShieldMountain(object? sender , WarriorEventArgs e)      //战士使用盾山技能
-    {
-        e.warrior.Defense = shieldMountain.DefenseSkills(e.warrior.Defense);
-    }
 }
 public class SkillManager
 {
     SkillEventHandler skillEventHandler = new SkillEventHandler();
     SkillEventHandlerMethod skillEventHandlerMethod = new SkillEventHandlerMethod();
-    public SkillManager()
+    public void WarriorSkillOnGoblin(int a , GoblinEventArgs e)
     {
-        
+        if (a == 1)
+        {
+            skillEventHandler.WarriorSkillGoblinEvent += skillEventHandlerMethod.GoblinCriticalHitSkill;
+        }
+        else if(a == 2)
+        {
+            skillEventHandler.WarriorSkillGoblinEvent += skillEventHandlerMethod.GoblinSweepSkill;
+        }
+
+        skillEventHandler.OnWarriorSkillGoblin(e);
+
+        skillEventHandler.WarriorSkillGoblinEvent -= skillEventHandlerMethod.GoblinCriticalHitSkill;
+        skillEventHandler.WarriorSkillGoblinEvent -= skillEventHandlerMethod.GoblinSweepSkill;
     }
-    public void WarriorSkillEvent(int a , object e)
+    public void WarriorSkillOnSkeleton(int a , SkeletonEventArgs e)
     {
-        if (e is Goblin)
+        if (a == 1)
         {
-            if (a == 1)
-            {
-                skillEventHandler.WarriorSkillEvent += skillEventHandlerMethod.GoblinCriticalHitSkill;
-            }
-            else if (a == 2)
-            {
-                skillEventHandler.WarriorSkillEvent += skillEventHandlerMethod.GoblinSweepSkill;
-            }
-            try
-            {
-                Goblin goblin = (Goblin)e;
-                skillEventHandler.OnWarriorSkill(new GoblinEventArgs(goblin));
-            }
-            catch
-            {
-                Console.WriteLine("转换出现问题");
-                throw new InvalidCastException(nameof(Goblin));
-            }
-            finally
-            {
-                skillEventHandler.WarriorSkillEvent -= skillEventHandlerMethod.GoblinCriticalHitSkill;
-                skillEventHandler.WarriorSkillEvent -= skillEventHandlerMethod.GoblinSweepSkill;
-            }
+            skillEventHandler.WarriorSkillSkeletonEvent += skillEventHandlerMethod.SkeletonCriticalHitSkill;
         }
-        else
+        else if(a == 2)
         {
-            Console.WriteLine("方法输入的类型不正确");
-            return;
+            skillEventHandler.WarriorSkillSkeletonEvent += skillEventHandlerMethod.SkeletonSweepSkill;
         }
+
+        skillEventHandler.OnWarriorSkillSkeleton(e);
+
+        skillEventHandler.WarriorSkillSkeletonEvent -= skillEventHandlerMethod.SkeletonCriticalHitSkill;
+        skillEventHandler.WarriorSkillSkeletonEvent -= skillEventHandlerMethod.SkeletonSweepSkill;
     }
+    public void WarriorSkillOnDragon(int a , DragonEventArgs e)
+    {
+        if (a == 1)
+        {
+            skillEventHandler.WarriorSkillDragonEvent += skillEventHandlerMethod.DragonCriticalHitSkill;
+        }
+        else if(a == 2)
+        {
+            skillEventHandler.WarriorSkillDragonEvent += skillEventHandlerMethod.DragonSweepSkill;
+        }
+
+        skillEventHandler.OnWarriorSkillDragon(e);
+
+        skillEventHandler.WarriorSkillDragonEvent -= skillEventHandlerMethod.DragonCriticalHitSkill;
+        skillEventHandler.WarriorSkillDragonEvent -= skillEventHandlerMethod.DragonSweepSkill;
+    }
+    public void MageSkillOnGoblin(int a , GoblinEventArgs e)
+    {
+        if (a == 1)
+        {
+            skillEventHandler.MageSkillGoblinEvent += skillEventHandlerMethod.GoblinIceSpikeSkill;
+        }
+        else if (a == 2)
+        {
+            skillEventHandler.MageSkillGoblinEvent += skillEventHandlerMethod.GoblinFireAttackSkill;
+        }
+
+        skillEventHandler.OnMageSkillGoblin(e);
+
+        skillEventHandler.MageSkillGoblinEvent -= skillEventHandlerMethod.GoblinIceSpikeSkill;
+        skillEventHandler.MageSkillGoblinEvent -= skillEventHandlerMethod.GoblinFireAttackSkill;
+    }
+    public void MageSkillOnSkeleton(int a , SkeletonEventArgs e)
+    {
+        if (a == 1)
+        {
+            skillEventHandler.MageSkillSkeletonEvent += skillEventHandlerMethod.SkeletonIceSpikeSkill;
+        }
+        else if (a == 2)
+        {
+            skillEventHandler.MageSkillSkeletonEvent += skillEventHandlerMethod.SkeletonFireAttackSkill;
+        }
+
+        skillEventHandler.OnMageSkillSkeleton(e);
+
+        skillEventHandler.MageSkillSkeletonEvent -= skillEventHandlerMethod.SkeletonIceSpikeSkill;
+        skillEventHandler.MageSkillSkeletonEvent -= skillEventHandlerMethod.SkeletonFireAttackSkill;
+    }
+    public void MageSkillOnDragon(int a , DragonEventArgs e)
+    {
+        if (a == 1)
+        {
+            skillEventHandler.MageSkillDragonEvent += skillEventHandlerMethod.DragonIceSpikeSkill;
+        }
+        else if (a == 2)
+        {
+            skillEventHandler.MageSkillDragonEvent += skillEventHandlerMethod.DragonFireAttackSkill;
+        }
+
+        skillEventHandler.OnRangerDragonSkill(e);
+
+        skillEventHandler.MageSkillDragonEvent -= skillEventHandlerMethod.DragonIceSpikeSkill;
+        skillEventHandler.MageSkillDragonEvent -= skillEventHandlerMethod.DragonFireAttackSkill;
+    } 
 }

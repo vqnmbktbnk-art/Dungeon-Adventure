@@ -54,31 +54,3 @@ public class Mage : CharacterBase , IDamageAble , IAttackAble   //法师
         return newAttackPower;
     }
 }
-public class Ranger : CharacterBase , IDamageAble , IAttackAble  //游侠
-{
-    public Ranger()
-    {
-        Basevalue();
-    }
-    public void Basevalue()
-    {
-        Health = 100;
-        Defense = 7;
-        Level = 1;
-        Experience = 0;
-        Speed = 6;
-        AttackPower = 20;
-        Magicpower = 10;
-    }
-    public int Damage(int Helath , int AttackPower , int Defense)
-    {
-        int newAttack = AttackPower - Defense;
-        this.Health = Helath - newAttack;
-        return Health;
-    }
-    public int Attack(int AttackPower , int Magicpower)
-    {
-        int newAttackPower = AttackPower + Magicpower;
-        return newAttackPower;
-    }
-}
