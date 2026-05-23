@@ -148,7 +148,7 @@ public class SkillEventHandlerMethod
 public class SkillManager
 {
     SkillEventHandler skillEventHandler = new SkillEventHandler();
-    SkillEventHandlerMethod skillEventHandlerMethod = new SkillEventHandlerMethod();
+    public SkillEventHandlerMethod skillEventHandlerMethod = new SkillEventHandlerMethod();
     public void WarriorSkillOnGoblin(int a , GoblinEventArgs e)
     {
         if (a == 1)

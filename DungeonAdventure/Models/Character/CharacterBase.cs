@@ -8,7 +8,7 @@ public class CharacterBase
         {
             if (value <= 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(value) , "血量的初始定义不能小于或等于零");
+                _health = 0;
             }
             else
             {
@@ -78,8 +78,8 @@ public class CharacterBase
     }
     private int _attackPower;                 //攻击力
     public int AttackPower {get => _attackPower; set => _attackPower = value;}
-    private double _magicPower;              //法力
-    public double Magicpower
+    private int _magicPower;              //法力
+    public int Magicpower
     {
         get => _magicPower;
         set

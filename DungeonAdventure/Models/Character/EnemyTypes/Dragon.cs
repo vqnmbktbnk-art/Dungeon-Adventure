@@ -13,6 +13,11 @@ public class Dragon : Enemy    //Boss 龙
         AttackPower = 30;
         Magicpower = 28;
     }
+    public int Attack(int Health)                     //普通攻击
+    {
+        int newAttack = AttackPower + Magicpower;
+        return Health - newAttack;
+    }
     public int FireBall(int Health , int Defense)  //技能:火球攻击
     {
         int TheHealth = Health + Defense;

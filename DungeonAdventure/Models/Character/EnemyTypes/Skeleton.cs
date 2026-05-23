@@ -13,6 +13,11 @@ public class Skeleton : Enemy  //骷髅
         AttackPower = 15;
         Magicpower = 6;
     }
+    public int Attack(int Health)                     //普通攻击
+    {
+        int newAttack = AttackPower + Magicpower;
+        return Health - newAttack;
+    }
     public int SpeedArrow(int Health , int Defense)    //技能:万箭齐发
     {
         int TheHealth = Health + Defense;
