@@ -1,15 +1,12 @@
 public class EnTemplate : RoleTemplate , IAttackDamage
 {
-    private const int EnemyHealth =  90;
-    private const int EnemyAttack = 5;
-
-    private int _health = EnemyHealth;
+    private int _health;
     public override int Health
     {
         get => _health;
         set
         {
-            if (value < 0 || value > EnemyHealth) //血量确定在一定范围内
+            if (value < 0) //血量确定在一定范围内
             {
                 _health = 0;
             }
@@ -20,7 +17,7 @@ public class EnTemplate : RoleTemplate , IAttackDamage
         }
     }
 
-    private int _attack = EnemyAttack;
+    private int _attack;
     public override int Attack
     {
         get => _attack;
