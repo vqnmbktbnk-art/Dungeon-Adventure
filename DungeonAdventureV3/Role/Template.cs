@@ -1,6 +1,6 @@
 public abstract class RoleTemplate
 {
-    public required string Name{get; set;}
+    public string? Name{get; set;}
     public abstract int Health{get; set;}
     public abstract int Attack{get; set;}
     public abstract int Level{get; set;}
