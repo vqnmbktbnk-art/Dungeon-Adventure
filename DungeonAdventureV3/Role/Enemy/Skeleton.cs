@@ -1,10 +1,13 @@
 public class Skeleton : EnTemplate
 {
     private const int newAttack = 10;
+
     public Skeleton()
     {
+        Name = "骷髅";
         Health = 50;
-        Attack = 6;
+        Attack = 5;
+        Level = 1;
     }
 
     public override int NormalAttack(int playerHealth)
