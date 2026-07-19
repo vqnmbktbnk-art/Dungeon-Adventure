@@ -1,9 +1,10 @@
 public class InputProcessing
 {
-    public int InputConversion(string? input)
+    public int InputConversion()
     {
         while (true)
         {
+            string? input = Console.ReadLine();
             if (input == null)
             {
                 continue;

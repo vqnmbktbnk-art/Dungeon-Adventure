@@ -31,24 +31,26 @@ public class BattleRoom
                 enemyGenerate.RemoveEnemy(0);
                 continue;
             }
-            string? playerinput = Console.ReadLine();
-            int input = inputProcessing.InputConversion(playerinput);
+            int input = inputProcessing.InputConversion();
             int enemyChose = random.Next(1,3);  //敌人的选择
 
             Specificbattle(input , enemyChose , enTemplate);
             if (player.Health <= 0)
             {
+                Console.WriteLine("你失败了，即将回到主菜单");
                 EventManager.eventManager.OnFail();
                 break;
             }
             else if (enTemplate.Health <= 0)
             {
+                Console.WriteLine("你已击杀该怪物");
                 EventManager.eventManager.OnKill();
                 amount --;
             }
             else if (player.Health >0 && amount == 0)
             {
                 EventManager.eventManager.OnSuccess();
+                Console.WriteLine("恭喜通关该房间");
                 break;
             }
         }
