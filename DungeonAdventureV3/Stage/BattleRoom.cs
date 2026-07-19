@@ -36,32 +36,48 @@ public class BattleRoom
             int enemyChose = random.Next(1,3);  //敌人的选择
 
             Specificbattle(input , enemyChose , enTemplate);
+            if (player.Health <= 0)
+            {
+                EventManager.eventManager.OnFail();
+                break;
+            }
+            else if (enTemplate.Health <= 0)
+            {
+                EventManager.eventManager.OnKill();
+                amount --;
+            }
+            else if (player.Health >0 && amount == 0)
+            {
+                EventManager.eventManager.OnSuccess();
+                break;
+            }
         }
         while (player.Health > 0);
 
-        enemyGenerate.ClearEnemy();   
+        enemyGenerate.ClearEnemy();
+        EventManager.eventManager.OnClearEvent();
     }
     private void Specificbattle(int input , int enemyChose , EnTemplate enTemplate)
     {
-         if (input == 1 && enemyChose == 1)
-            {
-                Console.WriteLine("你和敌人都选择进攻");
-                enTemplate.Health = player.NormalAttack(enTemplate.Health);
-                player.Health = enTemplate.NormalAttack(player.Health);
-            }
-            else if (input == 1 && enemyChose == 2)
-            {
-                Console.WriteLine("你选择进攻但敌人选择了躲避");
-            }
-            else if (input == 2 && enemyChose == 1)
-            {
-                Console.WriteLine("你选择躲避，刚好躲掉敌人的进攻");
-            }
-            else if (input == 2 && enemyChose == 2)
-            {
-                Console.WriteLine("你和敌人都选择躲避，谨慎观望");
-            }
-            Console.WriteLine("你的血量：{0}/100",player.Health);
-            Console.WriteLine("{0}的血量：{1}/100",enTemplate.Name,enTemplate.Health);
+        if (input == 1 && enemyChose == 1)
+        {
+            Console.WriteLine("你和敌人都选择进攻");
+            enTemplate.Health = player.NormalAttack(enTemplate.Health);
+            player.Health = enTemplate.NormalAttack(player.Health);
+        }
+        else if (input == 1 && enemyChose == 2)
+        {
+            Console.WriteLine("你选择进攻但敌人选择了躲避");
+        }
+        else if (input == 2 && enemyChose == 1)
+        {
+            Console.WriteLine("你选择躲避，刚好躲掉敌人的进攻");
+        }
+        else if (input == 2 && enemyChose == 2)
+        {
+            Console.WriteLine("你和敌人都选择躲避，谨慎观望");
+        }
+        Console.WriteLine("你的血量：{0}/100",player.Health);
+        Console.WriteLine("{0}的血量：{1}/100",enTemplate.Name,enTemplate.Health);
     }
 }

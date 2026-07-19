@@ -1,4 +1,4 @@
 public interface IMusicTemple
 {
-    public void MusicPlayback();
+    public void MusicPlayback(object? sender , EventArgs e);
 }
