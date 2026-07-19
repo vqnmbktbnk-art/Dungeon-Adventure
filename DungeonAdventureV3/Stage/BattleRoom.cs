@@ -25,7 +25,7 @@ public class BattleRoom
         do
         {
             if (enemyGenerate.EnemyCount == 0) break;
-            EnTemplate enTemplate = enemyGenerate.ThisEnemy(0);
+            EnTemplate enTemplate = enemyGenerate.ThisEnemy(0);    //获取活着的第一个敌人
             if (enTemplate.Health <= 0)
             {
                 enemyGenerate.RemoveEnemy(0);
